@@ -6,44 +6,44 @@
         {
 
             var beforeStop = DateTime.Now;
-            // int b = ReverseFunc(3, 6);
-            uint num = 50;
-            uint a = Fib(num); // 45 позиция - 37 секунд; 50 позиция - 5 минут 38 секунд
-            // uint a = Fib2(num); // 45 позиция - 0.13 секунд; 50 позиция - 0. 2 секунды
-            Console.WriteLine(a);
-            Console.WriteLine(DateTime.Now - beforeStop);
-        }
+            uint num = 20;
+            for (uint i = 1; i <= num; i++)
+            {
+                uint count = 0;
+                uint a = Fib1(i, ref count);
+                // uint a = Fib2(i, ref count);
+                // uint a = Fib3(i, ref count);
+                Console.WriteLine($"Номер числа: \t {i} \t Значение: \t {a} \t Количество вызовов: \t {count}");
+            } 
 
-        static int ReverseFunc(int n, int step, int initStep = 1, int previousNumber = 0)
+            Console.WriteLine($"Время - {DateTime.Now - beforeStop}");
+        }
+        static uint Fib1(uint step, ref uint count, uint n = 1, uint prevNum = 0)
         {
-            int result;
-            if(step <= 1)
+            count++;
+            if (step <= 1)
             {
                 return n;
             }
-
-            if(initStep == 1)
+            if (n == 2)
             {
-                result = n + ReverseFunc(n * 2, step - 1, 0, n);
+                prevNum = 1;
             }
-            else
-            {
-                result = n + ReverseFunc(n + previousNumber, step - 1, 0, n);
-            }
-
-            return result;
+            return Fib1(step - 1, ref count, n + prevNum, n);
         }
 
-        static uint Fib(uint n)
+        static uint Fib2(uint n, ref uint count)
         {
+            count++;
             if (n <= 1)
             {
                 return n;
             }
-            return Fib(n - 1) + Fib(n - 2);
+
+            return Fib2(n - 1, ref count) + Fib2(n - 2, ref count);
         }
 
-        static uint Fib2(uint n)
+        static uint Fib3(uint n, ref uint count)
         {
             var fibList = new uint[n + 1];
             fibList[0] = 0;
@@ -51,6 +51,7 @@
             for(int i = 2; i < n + 1; i++)
             {
                 fibList[i] = fibList[i - 1] + fibList[i - 2];
+                count++;
             }
             return fibList[n];
         }
