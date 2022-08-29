@@ -4,7 +4,11 @@
     {
         static void Main(string[] args)
         {
+            DateTimeMeasure(); // Datetime running calculations
+        }
 
+        static void DateTimeMeasure()
+        {
             var beforeStop = DateTime.Now;
             uint num = 20;
             for (uint i = 1; i <= num; i++)
